@@ -1,0 +1,86 @@
+/* ── @import MUST be first — before any @tailwind directives ── */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── HemoLife Global Styles ─── */
+
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --red-50:#fff1f2; --red-100:#ffe4e6; --red-200:#fecdd3; --red-300:#fda4af;
+  --red-400:#fb7185; --red-500:#f43f5e; --red-600:#e11d48; --red-700:#be123c;
+  --red-800:#9f1239; --red-900:#881337;
+  --gray-50:#f9fafb; --gray-100:#f3f4f6; --gray-200:#e5e7eb;
+  --gray-400:#9ca3af; --gray-600:#4b5563; --gray-800:#1f2937; --gray-900:#111827;
+  --font:'Poppins',sans-serif;
+  --serif:'DM Serif Display',serif;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.08);
+  --shadow-md:0 4px 16px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 40px rgba(0,0,0,.14);
+  --shadow-red:0 8px 32px rgba(193,21,42,.25);
+  --radius-sm:12px; --radius-md:18px; --radius-lg:24px; --radius-xl:32px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: #fff;
+  color: var(--gray-800);
+  overflow-x: hidden;
+}
+
+/* ── Animations ── */
+@keyframes fadeInUp  { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@keyframes float     { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-12px); } }
+@keyframes pulseRing { 0% { transform:scale(.9);opacity:.8; } 70%,100% { transform:scale(1.25);opacity:0; } }
+
+.animate-fade-in { animation: fadeInUp .4s ease forwards; }
+.animate-float   { animation: float 5s ease-in-out infinite; }
+
+/* ── Page-level design overrides ── */
+.page-home      { background: #fff; }
+.page-dashboard { background: var(--gray-50); }
+.page-form      { background: var(--gray-50); }
+
+/* ── Shared utilities ── */
+.gradient-text {
+  background: linear-gradient(135deg,var(--red-600),var(--red-900));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar         { width:6px; }
+::-webkit-scrollbar-track   { background:transparent; }
+::-webkit-scrollbar-thumb   { background:var(--red-200); border-radius:3px; }
+::-webkit-scrollbar-thumb:hover { background:var(--red-400); }
+
+/* ── Focus ── */
+*:focus-visible { outline:2px solid var(--red-400); outline-offset:2px; }
+
+/* ── Form inputs — consistent across all pages ── */
+input, select, textarea {
+  font-family: 'Poppins', sans-serif !important;
+  color: #1f2937 !important;
+}
+input::placeholder, textarea::placeholder { color: #d1d5db !important; }
+
+/* ── Responsive helpers ── */
+@media (max-width:768px) {
+  .hide-mobile  { display:none !important; }
+  .section-padding { padding:60px 5%; }
+}
+@media (min-width:769px) {
+  .hide-desktop { display:none !important; }
+}
+
+/* ── Print styles (for certificates) ── */
+@media print {
+  nav, .print\\:hidden { display:none !important; }
+  body { background:#fff !important; }
+}
