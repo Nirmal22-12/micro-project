@@ -11,7 +11,8 @@ const transporter = nodemailer.createTransport({
   },
   tls: {
     rejectUnauthorized: false
-  }
+  },
+  family: 4 // Force IPv4 to avoid Render's ENETUNREACH IPv6 issue
 });
 
 // Escape HTML to prevent injection in email templates
