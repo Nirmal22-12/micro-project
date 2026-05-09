@@ -3,6 +3,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_API_URL || '/api';
+
 // Indian states
 const INDIAN_STATES = [
   "All", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", 
@@ -79,7 +81,7 @@ export default function Donors() {
     setCallingDonorId(donorId);
     showToast("🔒 Connecting secure masked call...");
     try {
-      const res = await axios.post(`/api/donors/${donorId}/call`, {}, {
+      const res = await axios.post(`${API_URL}/donors/${donorId}/call`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       showToast("✅ " + (res.data.message || "Call initiated successfully."));
@@ -111,7 +113,7 @@ export default function Donors() {
         params.lng = lng;
       }
 
-      const res = await axios.get("/api/donors/search", { params });
+      const res = await axios.get(`${API_URL}/donors/search`, { params });
       console.log("Search response:", res.data);
       setDonors(res.data.donors || []);
       setTotalCount(res.data.totalDonors || 0);
@@ -139,7 +141,7 @@ export default function Donors() {
         return;
       }
       try {
-        const res = await axios.get("/api/donors/search/suggestions", { params: { city } });
+        const res = await axios.get(`${API_URL}/donors/search/suggestions`, { params: { city } });
         setSuggestions(res.data);
       } catch (err) {
         console.error(err);
