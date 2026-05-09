@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { GoogleLogin } from "@react-oauth/google";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -35,7 +36,7 @@ const baseInput = {
 };
 
 export default function Register() {
-  const { register } = useAuth();
+  const { register, handleGoogleAuth } = useAuth();
   const navigate     = useNavigate();
 
   const [form, setForm] = useState({
@@ -332,6 +333,35 @@ export default function Register() {
               {loading ? "Creating account…" : "Create Account →"}
             </button>
           </form>
+
+          {/* Divider */}
+          <div style={{ display:"flex", alignItems:"center", gap:12, margin:"20px 0" }}>
+            <div style={{ flex:1, height:1, background:"#e5e7eb" }} />
+            <span style={{ fontSize:12, color:"#9ca3af", fontWeight:500 }}>or</span>
+            <div style={{ flex:1, height:1, background:"#e5e7eb" }} />
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}>
+            <GoogleLogin
+              onSuccess={async (credentialResponse) => {
+                setLoading(true);
+                try {
+                  await handleGoogleAuth(credentialResponse.credential);
+                  setLoading(false);
+                  navigate("/dashboard");
+                } catch (err) {
+                  setLoading(false);
+                  setApiError("Google authentication failed. Please try again.");
+                }
+              }}
+              onError={() => setApiError("Google authentication failed. Please try again.")}
+              useOneTap
+              shape="pill"
+              theme="outline"
+              size="large"
+              text="signup_with"
+            />
+          </div>
 
           <p style={{ textAlign:"center", fontSize:13, color:"#9ca3af", marginTop:20 }}>
             Already have an account?{" "}

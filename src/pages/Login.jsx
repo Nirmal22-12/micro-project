@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { GoogleLogin } from "@react-oauth/google";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -15,7 +16,7 @@ const baseInput = {
 };
 
 export default function Login() {
-  const { login }    = useAuth();
+  const { login, handleGoogleAuth }    = useAuth();
   const navigate     = useNavigate();
   const location     = useLocation();
   const from         = location.state?.from?.pathname || "/dashboard";
@@ -207,6 +208,27 @@ export default function Login() {
             <div style={{ flex:1, height:1, background:"#e5e7eb" }} />
             <span style={{ fontSize:12, color:"#9ca3af", fontWeight:500 }}>or</span>
             <div style={{ flex:1, height:1, background:"#e5e7eb" }} />
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}>
+            <GoogleLogin
+              onSuccess={async (credentialResponse) => {
+                setLoading(true);
+                try {
+                  await handleGoogleAuth(credentialResponse.credential);
+                  setLoading(false);
+                  navigate(from, { replace: true });
+                } catch (err) {
+                  setLoading(false);
+                  setError("Google authentication failed. Please try again.");
+                }
+              }}
+              onError={() => setError("Google authentication failed. Please try again.")}
+              useOneTap
+              shape="pill"
+              theme="outline"
+              size="large"
+            />
           </div>
 
           <p style={{ textAlign:"center", fontSize:13, color:"#9ca3af" }}>

@@ -1,11 +1,18 @@
-<<<<<<< HEAD
-﻿node_modules/
-dist/
+# Dependencies
+node_modules/
+backend/node_modules/
+
+# Environment Variables
 .env
-*.log
-=======
-﻿node_modules/
+.env.*
+!.env.example
+backend/.env
+
+# Build outputs
 dist/
-.env
+build/
+
+# Logs and OS files
 *.log
->>>>>>> 10599c165e729f901e6c8f8e643534aa9e6060ab
+npm-debug.log*
+.DS_Store

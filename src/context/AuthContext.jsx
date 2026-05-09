@@ -28,6 +28,16 @@ export function AuthProvider({ children }) {
     return { success: true };
   };
 
+  const handleGoogleAuth = async (credential) => {
+    const { googleLogin } = await import("../services/api");
+    const response = await googleLogin(credential);
+    const { token, ...userData } = response;
+    setUser(userData);
+    localStorage.setItem("user", JSON.stringify(userData));
+    localStorage.setItem("token", token);
+    return { success: true };
+  };
+
   const register = async (userData) => {
     // Note: registerUser expects { name, email, password, phone_number, blood_type, location, etc. }
     const response = await apiRegister(userData);
@@ -50,7 +60,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, loading, updateUserSession }}>
+    <AuthContext.Provider value={{ user, login, handleGoogleAuth, register, logout, loading, updateUserSession }}>
       {children}
     </AuthContext.Provider>
   );

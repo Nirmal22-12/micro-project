@@ -1,4 +1,4 @@
-const API_URL = '/api';
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 // Helper function to get the auth headers along with the token
 const getAuthHeaders = () => {
@@ -19,6 +19,20 @@ export const loginUser = async (credentials) => {
     if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         throw new Error(errorData.message || 'Login failed');
+    }
+    return response.json();
+};
+
+export const googleLogin = async (credential) => {
+    const response = await fetch(`${API_URL}/auth/google`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ credential })
+    });
+    
+    if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Google Auth failed');
     }
     return response.json();
 };
