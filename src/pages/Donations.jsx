@@ -126,7 +126,7 @@ export default function Donations() {
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-gray-800">{d.donation_type} Donation</p>
                 <p className="text-xs text-gray-400 mt-0.5 truncate">
-                  {d.location || "HemoLife Center"} · {fmtDate(d.donation_date)}
+                  {d.location || "LifeFlow Center"} · {fmtDate(d.donation_date)}
                 </p>
               </div>
               <button onClick={() => navigate(`/donations/${d.id}/certificate`)}

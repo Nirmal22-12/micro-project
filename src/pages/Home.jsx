@@ -110,7 +110,7 @@ export default function Home() {
       {/* ── Features ── */}
       <section className="py-24 px-[5%]">
         <div className="mb-14">
-          <div className="inline-block bg-red-50 text-red-600 text-xs font-semibold px-3.5 py-1.5 rounded-full uppercase tracking-wide mb-4">Why HemoLife?</div>
+          <div className="inline-block bg-red-50 text-red-600 text-xs font-semibold px-3.5 py-1.5 rounded-full uppercase tracking-wide mb-4">Why LifeFlow?</div>
           <h2 className="text-[clamp(1.8rem,3vw,2.5rem)] font-extrabold text-gray-900 mb-3">Everything You Need to<br/>Save a Life Today</h2>
           <p className="text-gray-400 text-base leading-7 max-w-lg">From finding the nearest donation center to tracking your donation history — we make it simple.</p>
         </div>
@@ -170,7 +170,7 @@ export default function Home() {
               <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background:"linear-gradient(135deg,#e11d48,#9f1239)" }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
               </div>
-              <span className="text-lg font-bold">Hemo<span className="font-light opacity-70">Life</span></span>
+              <span className="text-lg font-bold">Life<span className="font-light opacity-70">Flow</span></span>
             </div>
             <p className="text-white/50 text-sm leading-7 max-w-[280px]">India's most trusted blood donation platform connecting donors, recipients, and hospitals since 2019.</p>
           </div>
@@ -185,7 +185,7 @@ export default function Home() {
         </div>
         <hr className="border-white/10 mb-7" />
         <div className="flex justify-between items-center text-white/40 text-xs flex-wrap gap-4">
-          <span>© 2026 HemoLife. All rights reserved.</span>
+          <span>© 2026 LifeFlow. All rights reserved.</span>
           <span>Made with ❤️ to save lives</span>
         </div>
       </footer>

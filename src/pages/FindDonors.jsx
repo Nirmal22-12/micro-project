@@ -30,7 +30,7 @@ export default function FindDonors() {
     if (!phone) return;
     // Strip non-numeric characters for the WhatsApp URI
     const cleanPhone = phone.replace(/[^0-9]/g, '');
-    const defaultMsg = encodeURIComponent(`Hi ${name}, I found your contact on HemoLife. I am in urgent need of ${selectedType} blood. Are you available to help?`);
+    const defaultMsg = encodeURIComponent(`Hi ${name}, I found your contact on LifeFlow. I am in urgent need of ${selectedType} blood. Are you available to help?`);
     window.open(`https://wa.me/${cleanPhone}?text=${defaultMsg}`, '_blank');
   };
 

@@ -129,7 +129,7 @@ export default function Register() {
             </svg>
           </div>
           <span style={{ color:"white", fontSize:20, fontWeight:700 }}>
-            Hemo<span style={{ fontWeight:300, opacity:.75 }}>Life</span>
+            Life<span style={{ fontWeight:300, opacity:.75 }}>Flow</span>
           </span>
         </div>
 
@@ -175,12 +175,12 @@ export default function Register() {
               </svg>
             </div>
             <span style={{ fontSize:18, fontWeight:700, color:"#111827" }}>
-              Hemo<span style={{ fontWeight:300, color:"#9ca3af" }}>Life</span>
+              Life<span style={{ fontWeight:300, color:"#9ca3af" }}>Flow</span>
             </span>
           </div>
 
           <h1 style={{ fontSize:26, fontWeight:800, color:"#111827", marginBottom:4 }}>Create your account</h1>
-          <p style={{ fontSize:14, color:"#9ca3af", marginBottom:28 }}>Join HemoLife and start saving lives today</p>
+          <p style={{ fontSize:14, color:"#9ca3af", marginBottom:28 }}>Join LifeFlow and start saving lives today</p>
 
           {/* API Error */}
           {apiError && (

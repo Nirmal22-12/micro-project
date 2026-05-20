@@ -52,7 +52,7 @@ function AppRoutes() {
             style={{ fontFamily: "Poppins, sans-serif" }}>
             <div className="text-6xl">🩸</div>
             <h1 className="text-2xl font-bold text-gray-900">Page not found</h1>
-            <a href="/" className="text-red-600 font-semibold hover:underline text-sm">← Back to HemoLife</a>
+            <a href="/" className="text-red-600 font-semibold hover:underline text-sm">← Back to LifeFlow</a>
           </div>
         } />
 

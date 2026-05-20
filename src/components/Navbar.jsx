@@ -59,7 +59,7 @@ export default function Navbar() {
         </div>
         <span className="text-lg font-bold"
           style={{ background: "linear-gradient(135deg,#be123c,#881337)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-          Hemo<span style={{ fontWeight: 300 }}>Life</span>
+          Life<span style={{ fontWeight: 300 }}>Flow</span>
         </span>
       </Link>
 

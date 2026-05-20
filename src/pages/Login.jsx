@@ -70,7 +70,7 @@ export default function Login() {
             </svg>
           </div>
           <span style={{ color:"white", fontSize:20, fontWeight:700 }}>
-            Hemo<span style={{ fontWeight:300, opacity:.75 }}>Life</span>
+            Life<span style={{ fontWeight:300, opacity:.75 }}>Flow</span>
           </span>
         </div>
 
@@ -118,7 +118,7 @@ export default function Login() {
 
 
           <h1 style={{ fontSize:26, fontWeight:800, color:"#111827", marginBottom:4 }}>Welcome back</h1>
-          <p style={{ fontSize:14, color:"#9ca3af", marginBottom:24 }}>Sign in to your HemoLife account</p>
+          <p style={{ fontSize:14, color:"#9ca3af", marginBottom:24 }}>Sign in to your LifeFlow account</p>
 
           {/* Redirected from donate */}
           {fromDonate && (

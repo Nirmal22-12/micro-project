@@ -60,6 +60,13 @@ const [form, setForm] = useState({
     if (!form.firstName.trim())  e.firstName  = "Required";
     if (!form.lastName.trim())   e.lastName   = "Required";
     if (!form.dob)               e.dob        = "Required";
+    else {
+      const d = new Date(form.dob);
+      const age = (Date.now() - d) / (1000*60*60*24*365.25);
+      if (isNaN(d.getTime()))   e.dob = "Invalid date";
+      else if (age < 18)        e.dob = "Must be 18 or older";
+      else if (age > 65)        e.dob = "Age must be 65 or below";
+    }
     if (!form.gender)            e.gender     = "Required";
     if (!form.bloodType)         e.bloodType  = "Required";
     if (!form.weight)            e.weight     = "Required";
@@ -180,7 +187,7 @@ const [form, setForm] = useState({
               value={form.firstName} onChange={(e) => handleField("firstName", e.target.value)} error={errors.firstName} />
             <FormInput label="Last Name" required placeholder="Enter last name"
               value={form.lastName} onChange={(e) => handleField("lastName", e.target.value)} error={errors.lastName} />
-            <FormInput label="Date of Birth" required type="text" placeholder="YYYY-MM-DD"
+            <FormInput label="Date of Birth" required type="date"
               value={form.dob} onChange={(e) => handleField("dob", e.target.value)} error={errors.dob} />
             <FormSelect label="Gender" required value={form.gender}
               onChange={(e) => handleField("gender", e.target.value)} error={errors.gender}>

@@ -146,7 +146,7 @@ export default function DonorProfile() {
           <div className="bg-white rounded-[22px] p-7 border border-gray-100 flex items-center justify-center py-12"
             style={{ boxShadow: "0 1px 4px rgba(0,0,0,.05)" }}>
             <p className="text-sm text-gray-400 text-center max-w-[80%]">
-              By requesting blood from <strong>{donor.name}</strong>, HemoLife sends your name and email instantly. Please only request blood in verified medical emergencies.
+              By requesting blood from <strong>{donor.name}</strong>, LifeFlow sends your name and email instantly. Please only request blood in verified medical emergencies.
             </p>
           </div>
         </div>
@@ -154,3 +154,4 @@ export default function DonorProfile() {
     </div>
   );
 }
+

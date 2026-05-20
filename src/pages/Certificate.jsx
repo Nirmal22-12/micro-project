@@ -84,7 +84,7 @@ export default function Certificate() {
           <h1 className="text-white text-2xl md:text-3xl font-extrabold tracking-wide mb-1">
             Certificate of Donation
           </h1>
-          <p className="text-white/60 text-sm font-medium">HemoLife Blood Donation Platform</p>
+          <p className="text-white/60 text-sm font-medium">LifeFlow Blood Donation Platform</p>
         </div>
 
         {/* Body */}
@@ -141,7 +141,7 @@ export default function Certificate() {
             </div>
             <div className="text-right">
               <div className="mb-2" style={{ borderBottom: "2px solid #e11d48", width: 160, marginLeft: "auto" }} />
-              <p className="text-sm font-bold text-gray-700">HemoLife Team</p>
+              <p className="text-sm font-bold text-gray-700">LifeFlow Team</p>
               <p className="text-xs text-gray-400">Blood Donation Platform</p>
             </div>
           </div>

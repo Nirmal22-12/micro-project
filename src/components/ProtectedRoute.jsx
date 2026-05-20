@@ -18,7 +18,7 @@ export default function ProtectedRoute({ children, requireAuth = true, adminOnly
       <div className="min-h-screen flex items-center justify-center" style={{ background: "#f9fafb" }}>
         <div className="text-center">
           <div className="text-5xl mb-4" style={{ animation: "pulse 1.5s ease-in-out infinite" }}>🩸</div>
-          <p className="text-gray-400 text-sm font-medium">Loading HemoLife…</p>
+          <p className="text-gray-400 text-sm font-medium">Loading LifeFlow…</p>
         </div>
       </div>
     );
