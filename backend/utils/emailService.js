@@ -1,19 +1,8 @@
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 
-// Create the transporter
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587,
-  secure: false, // true for 465, false for other ports (uses STARTTLS)
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-  tls: {
-    rejectUnauthorized: false
-  },
-  family: 4 // Force IPv4 to avoid Render's ENETUNREACH IPv6 issue
-});
+// Initialize Resend (with a placeholder fallback to prevent server crash if the API key is not yet set)
+const resend = new Resend(process.env.RESEND_API_KEY || 're_placeholder');
+const fromEmail = process.env.EMAIL_FROM || 'onboarding@resend.dev';
 
 // Escape HTML to prevent injection in email templates
 const escapeHtml = (text) => {
@@ -24,7 +13,7 @@ const escapeHtml = (text) => {
 
 const sendWelcomeEmail = async (email, name) => {
   const mailOptions = {
-    from: process.env.EMAIL_USER,
+    from: fromEmail,
     to: email,
     subject: 'Welcome to HemoLife - Save Lives Today!',
     html: `
@@ -36,11 +25,11 @@ const sendWelcomeEmail = async (email, name) => {
     `,
   };
 
-  try {
-    await transporter.sendMail(mailOptions);
-    console.log(`Welcome email sent to ${email}`);
-  } catch (error) {
+  const { data, error } = await resend.emails.send(mailOptions);
+  if (error) {
     console.error(`Error sending welcome email to ${email}:`, error);
+  } else {
+    console.log(`Welcome email sent to ${email}`);
   }
 };
 
@@ -48,7 +37,7 @@ const sendUrgentRequestEmail = async (emails, bloodType, city, hospital_name, co
   if (!emails || emails.length === 0) return;
 
   const mailOptions = {
-    from: process.env.EMAIL_USER,
+    from: fromEmail,
     to: emails.join(','), // Send to multiple nearby donors
     subject: `🚨 URGENT: ${escapeHtml(bloodType)} Blood Needed in ${escapeHtml(city)}`,
     html: `
@@ -60,17 +49,17 @@ const sendUrgentRequestEmail = async (emails, bloodType, city, hospital_name, co
     `,
   };
 
-  try {
-    await transporter.sendMail(mailOptions);
-    console.log(`Urgent request email sent to ${emails.length} nearby donors.`);
-  } catch (error) {
+  const { data, error } = await resend.emails.send(mailOptions);
+  if (error) {
     console.error(`Error sending urgent request email:`, error);
+  } else {
+    console.log(`Urgent request email sent to ${emails.length} nearby donors.`);
   }
 };
 
 const sendCampaignConfirmationEmail = async (email, name, campaignName, date) => {
   const mailOptions = {
-    from: process.env.EMAIL_USER,
+    from: fromEmail,
     to: email,
     subject: `Confirmation: Registration for ${campaignName}`,
     html: `
@@ -83,17 +72,17 @@ const sendCampaignConfirmationEmail = async (email, name, campaignName, date) =>
     `,
   };
 
-  try {
-    await transporter.sendMail(mailOptions);
-    console.log(`Campaign confirmation email sent to ${email}`);
-  } catch (error) {
+  const { data, error } = await resend.emails.send(mailOptions);
+  if (error) {
     console.error(`Error sending campaign confirmation to ${email}:`, error);
+  } else {
+    console.log(`Campaign confirmation email sent to ${email}`);
   }
 };
 
 const sendCampaignReminderEmail = async (email, name, campaignName, date) => {
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: fromEmail,
       to: email,
       subject: `Reminder: Tomorrow is ${campaignName}!`,
       html: `
@@ -106,17 +95,17 @@ const sendCampaignReminderEmail = async (email, name, campaignName, date) => {
       `,
     };
   
-    try {
-      await transporter.sendMail(mailOptions);
-      console.log(`Campaign reminder email sent to ${email}`);
-    } catch (error) {
+    const { data, error } = await resend.emails.send(mailOptions);
+    if (error) {
       console.error(`Error sending campaign reminder to ${email}:`, error);
+    } else {
+      console.log(`Campaign reminder email sent to ${email}`);
     }
   };
 
 const sendDonationRequestEmail = async (donorEmail, donorName, requestorName, requestorEmail) => {
   const mailOptions = {
-    from: process.env.EMAIL_USER,
+    from: fromEmail,
     to: donorEmail,
     subject: `🩸 Someone needs your help! Blood Donation Request`,
     html: `
@@ -129,11 +118,11 @@ const sendDonationRequestEmail = async (donorEmail, donorName, requestorName, re
       <p>Thank you for being a lifesaver!</p><p>The HemoLife Team</p>
     `,
   };
-  try {
-    await transporter.sendMail(mailOptions);
-    console.log(`Donation request email sent to ${donorEmail}`);
-  } catch (error) {
+  const { data, error } = await resend.emails.send(mailOptions);
+  if (error) {
     console.error(`Error sending donation request email:`, error);
+  } else {
+    console.log(`Donation request email sent to ${donorEmail}`);
   }
 };
 
