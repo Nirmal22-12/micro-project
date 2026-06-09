@@ -206,3 +206,19 @@ export const registerForCampaign = async (campaignId) => {
     return response.json();
 };
 
+export const createCampaign = async (campaignData) => {
+    const response = await fetch(`${API_URL}/campaigns`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            ...getAuthHeaders()
+        },
+        body: JSON.stringify(campaignData)
+    });
+    if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to request campaign');
+    }
+    return response.json();
+};
+

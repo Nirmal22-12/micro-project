@@ -9,12 +9,6 @@ const registerForCampaign = async (req, res) => {
   const user_id = req.user.id;
 
   try {
-    // Verify that the user is a registered donor
-    const donorRes = await pool.query('SELECT id FROM donors WHERE user_id = $1', [user_id]);
-    if (donorRes.rows.length === 0) {
-      return res.status(400).json({ message: 'You must register as a donor before signing up for campaigns.' });
-    }
-
     // Check if campaign exists
     const campRes = await pool.query('SELECT * FROM campaigns WHERE id = $1', [campaign_id]);
     if (campRes.rows.length === 0) {
@@ -68,7 +62,8 @@ const getCampaigns = async (req, res) => {
       goal: 100, // standard default goal
       type: 'Whole Blood',
       urgencyLabel: new Date(row.event_date) < new Date(Date.now() + 86400000 * 3) ? '🔴 Urgent' : 'Open',
-      urgencyColor: new Date(row.event_date) < new Date(Date.now() + 86400000 * 3) ? '#dc2626' : '#16a34a'
+      urgencyColor: new Date(row.event_date) < new Date(Date.now() + 86400000 * 3) ? '#dc2626' : '#16a34a',
+      requester_id: row.requester_id
     }));
 
     res.status(200).json(mapped);
@@ -116,7 +111,45 @@ const getCampaigns = async (req, res) => {
   }
 };
 
+const createCampaign = async (req, res) => {
+  const { name, event_date, location } = req.body;
+  const requester_id = req.user.id;
+
+  if (!name || !event_date || !location) {
+    return res.status(400).json({ message: 'All fields (name, event_date, location) are required.' });
+  }
+
+  try {
+    const result = await pool.query(
+      'INSERT INTO campaigns (name, event_date, location, requester_id) VALUES ($1, $2, $3, $4) RETURNING *',
+      [name, event_date, location, requester_id]
+    );
+    
+    // Map the created DB record to the UI format
+    const row = result.rows[0];
+    const mapped = {
+      id: row.id,
+      title: row.name,
+      location: row.location || 'LifeFlow Center',
+      date: new Date(row.event_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      time: '9:00–17:00',
+      current: 0,
+      goal: 100,
+      type: 'Whole Blood',
+      urgencyLabel: 'Open',
+      urgencyColor: '#16a34a',
+      requester_id: row.requester_id
+    };
+
+    res.status(201).json(mapped);
+  } catch (error) {
+    console.error("Error creating campaign:", error.message);
+    res.status(500).json({ message: 'Server error creating campaign' });
+  }
+};
+
 module.exports = {
   registerForCampaign,
-  getCampaigns
+  getCampaigns,
+  createCampaign
 };

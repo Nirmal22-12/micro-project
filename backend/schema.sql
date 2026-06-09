@@ -18,3 +18,22 @@ CREATE TABLE IF NOT EXISTS donors (
   availability_status VARCHAR(50) DEFAULT 'available',
   weight DECIMAL(5,2)
 );
+
+-- Table: campaigns
+CREATE TABLE IF NOT EXISTS campaigns (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  event_date DATE NOT NULL,
+  location VARCHAR(255),
+  requester_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table: campaign_registrations
+CREATE TABLE IF NOT EXISTS campaign_registrations (
+  id SERIAL PRIMARY KEY,
+  campaign_id INTEGER REFERENCES campaigns(id) ON DELETE CASCADE,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  registered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(campaign_id, user_id)
+);

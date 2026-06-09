@@ -17,9 +17,13 @@ const pool = require('./db');
         name VARCHAR(255) NOT NULL,
         event_date DATE NOT NULL,
         location VARCHAR(255),
+        requester_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
+
+    // Alter campaigns if it already exists to add requester_id
+    await pool.query("ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS requester_id INTEGER REFERENCES users(id) ON DELETE SET NULL;");
 
     // Create campaign_registrations table
     await pool.query(`
