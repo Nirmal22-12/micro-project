@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import CampaignCard from "../components/CampaignCard";
 
@@ -18,6 +18,47 @@ export default function Home() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const goDonate = () => navigate(user ? "/donors/add" : "/login");
+
+  const footerSections = [
+    {
+      title: "Platform",
+      links: [
+        { label: "Home", path: "/" },
+        { label: "Dashboard", path: "/dashboard" },
+        { label: "Donors", path: "/donors" },
+        { label: "Register", path: "/register" }
+      ]
+    },
+    {
+      title: "Resources",
+      links: [
+        { label: "Eligibility Guide", path: "/donors/add" },
+        { label: "Blood Types", path: "/why-donate" },
+        { label: "FAQ", path: "/why-donate" },
+        { 
+          label: "Contact", 
+          action: () => alert("📞 Contact LifeFlow:\n\nEmail: support@lifeflow.org\nPhone: +91 98765 43210\nHours: 24/7 Helpline") 
+        }
+      ]
+    },
+    {
+      title: "Legal",
+      links: [
+        { 
+          label: "Privacy Policy", 
+          action: () => alert("🔒 Privacy Policy:\n\nYour data is fully encrypted and secure. LifeFlow does not share personal donor details without consent.") 
+        },
+        { 
+          label: "Terms of Use", 
+          action: () => alert("📋 Terms of Use:\n\nLifeFlow is a platform coordinating voluntary blood donations. Commercial transactions are strictly prohibited.") 
+        },
+        { 
+          label: "Accessibility", 
+          action: () => alert("♿ Accessibility:\n\nWe strive to make LifeFlow accessible to everyone. If you face any issues, please reach out to our support team.") 
+        }
+      ]
+    }
+  ];
 
   return (
     <div className="page-home">
@@ -174,11 +215,32 @@ export default function Home() {
             </div>
             <p className="text-white/50 text-sm leading-7 max-w-[280px]">India's most trusted blood donation platform connecting donors, recipients, and hospitals since 2019.</p>
           </div>
-          {[["Platform",["Home","Dashboard","Donors","Register"]],["Resources",["Eligibility Guide","Blood Types","FAQ","Contact"]],["Legal",["Privacy Policy","Terms of Use","Accessibility"]]].map(([title,links]) => (
-            <div key={title}>
-              <p className="text-xs font-bold uppercase tracking-widest text-white/50 mb-4">{title}</p>
+          {footerSections.map((section) => (
+            <div key={section.title}>
+              <p className="text-xs font-bold uppercase tracking-widest text-white/50 mb-4">{section.title}</p>
               <div className="flex flex-col gap-2.5">
-                {links.map(l => <span key={l} className="text-white/65 text-sm cursor-pointer hover:text-white transition-colors">{l}</span>)}
+                {section.links.map((link) => {
+                  if (link.path) {
+                    return (
+                      <Link
+                        key={link.label}
+                        to={link.path}
+                        className="text-white/65 text-sm cursor-pointer hover:text-white transition-colors no-underline"
+                      >
+                        {link.label}
+                      </Link>
+                    );
+                  }
+                  return (
+                    <span
+                      key={link.label}
+                      onClick={link.action}
+                      className="text-white/65 text-sm cursor-pointer hover:text-white transition-colors"
+                    >
+                      {link.label}
+                    </span>
+                  );
+                })}
               </div>
             </div>
           ))}
