@@ -21,13 +21,16 @@ const donationRoutes = require('./routes/donationRoutes');
 // Initialize Cron Jobs
 require('./utils/cronJobs');
 
+// Normalize Frontend URL to strip trailing slash for CORS matching
+const frontendUrl = process.env.FRONTEND_URL ? process.env.FRONTEND_URL.replace(/\/$/, '') : null;
+
 // Middleware
 app.use(cors({
    origin: [
-   process.env.FRONTEND_URL,
+   frontendUrl,
    'http://localhost:5173',
    'http://localhost:5174'
-  ] .filter(Boolean),
+  ].filter(Boolean),
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -47,7 +50,7 @@ app.use('/api/donations', donationRoutes);
 
 // Health-check route
 app.get('/', (req, res) => {
-  res.status(200).json({ status: 'success', message: 'HemoLife API is running smoothly!' });
+  res.status(200).json({ status: 'success', message: 'LifeFlow API is running smoothly!' });
 });
 
 // Start the server

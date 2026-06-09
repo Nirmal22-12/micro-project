@@ -151,9 +151,11 @@ const searchDonors = async (req, res) => {
         d.id,
         u.name, u.avatar,
         d.blood_type AS "bloodGroup", 
+        d.blood_type AS "blood_type",
         d.city, 
         d.state, 
-        NULL AS phone,
+        d.phone_number AS phone,
+        d.phone_number AS phone_number,
         CASE 
           WHEN d.last_donation_date IS NOT NULL AND d.last_donation_date >= CURRENT_DATE - INTERVAL '90 days' THEN 'recently_donated'
           ELSE COALESCE(d.availability_status, CASE WHEN d.is_available THEN 'available' ELSE 'busy' END)

@@ -17,7 +17,7 @@ export default function FindDonors() {
     
     try {
       const results = await searchDonors(selectedType);
-      setDonors(results);
+      setDonors(results.donors || results);
       setSearched(true);
     } catch (err) {
       setError(err.message || 'Failed to search donors');
@@ -87,19 +87,19 @@ export default function FindDonors() {
                 <div>
                    <h3 className="font-bold text-lg text-gray-900">{donor.name}</h3>
                    <span className="inline-block px-2.5 py-0.5 rounded-full bg-red-100 text-red-700 text-xs font-bold mt-1">
-                     {donor.blood_type}
+                     {donor.blood_type || donor.bloodGroup}
                    </span>
                 </div>
               </div>
               
               <div className="text-sm text-gray-500 mb-6 font-medium relative z-10 flex items-center gap-2">
-                 📞 <span className="tracking-wide text-gray-700">{donor.phone_number || "No number provided"}</span>
+                 📞 <span className="tracking-wide text-gray-700">{(donor.phone_number || donor.phone) || "No number provided"}</span>
               </div>
 
               {/* 4: WhatsApp Contact Button */}
               <button 
-                onClick={() => openWhatsApp(donor.phone_number || "", donor.name)}
-                disabled={!donor.phone_number}
+                onClick={() => openWhatsApp((donor.phone_number || donor.phone) || "", donor.name)}
+                disabled={!(donor.phone_number || donor.phone)}
                 className="w-full py-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold rounded-xl transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 relative z-10 font-[inherit]"
               >
                 Message on WhatsApp

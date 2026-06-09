@@ -1,4 +1,4 @@
-# 🩸 HemoLife — Blood Donation Platform
+# 🩸 LifeFlow — Blood Donation Platform
 
 A full-stack blood donation management platform built with **React**, **Express**, **PostgreSQL**, and **Tailwind CSS**.
 
@@ -70,8 +70,8 @@ A full-stack blood donation management platform built with **React**, **Express*
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/hemolife.git
-cd hemolife
+git clone https://github.com/<your-username>/lifeflow.git
+cd lifeflow
 ```
 
 ### 2. Set up the database
@@ -234,21 +234,8 @@ const status = computeEligibility(permValues, tempValues);
 
 ## 🔌 Connecting a Backend
 
-1. Copy `.env.example` → `.env.local`
-2. Set `VITE_API_URL=https://your-api.com/api`
-3. All calls in `src/services/api.js` will route there automatically.
-
----
-
-## 📱 Responsi- Route-level protection scaffold ready in `App.jsx`
-ed status card + warning banner, submit **disabled** |
-
----
-
-## 🔌 Connecting a Backend
-
-1. Copy `.env.example` → `.env.local`
-2. Set `VITE_API_URL=https://your-api.com/api`
+1. Copy `backend/.env.example` to a new `.env` file in the `backend` folder.
+2. Set `VITE_API_URL=http://localhost:5000/api` (for local development) or your hosted backend URL.
 3. All calls in `src/services/api.js` will route there automatically.
 
 ---
@@ -268,4 +255,3 @@ ed status card + warning banner, submit **disabled** |
 - Submit button disabled when eligibility check fails
 - Input focus rings meet WCAG contrast guidelines
 - Route-level protection scaffold ready in `App.jsx`
->>>>>>> 10599c165e729f901e6c8f8e643534aa9e6060ab
