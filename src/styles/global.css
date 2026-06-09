@@ -15,9 +15,13 @@
   cursor: default;
 }
 
-/* Allow text selection cursor only on inputs, textareas, and editable areas */
-input, textarea, [contenteditable] {
+/* Allow text selection and custom cursor only on inputs, textareas, editable areas, and selectable items */
+input, textarea, [contenteditable], .selectable, .selectable * {
   cursor: text;
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
 }
 
 /* Ensure interactive elements use pointer cursors */
@@ -47,6 +51,10 @@ body {
   background: #fff;
   color: var(--gray-800);
   overflow-x: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 /* ── Animations ── */
