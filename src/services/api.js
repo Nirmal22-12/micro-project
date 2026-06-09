@@ -182,3 +182,27 @@ export const getDonationCertificate = async (donationId) => {
     if (!response.ok) throw new Error('Failed to fetch certificate');
     return response.json();
 };
+
+// ── Campaigns ──
+
+export const getCampaigns = async () => {
+    const response = await fetch(`${API_URL}/campaigns`, {
+        method: 'GET',
+        headers: getAuthHeaders()
+    });
+    if (!response.ok) throw new Error('Failed to fetch campaigns');
+    return response.json();
+};
+
+export const registerForCampaign = async (campaignId) => {
+    const response = await fetch(`${API_URL}/campaigns/${campaignId}/register`, {
+        method: 'POST',
+        headers: getAuthHeaders()
+    });
+    if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to register for campaign');
+    }
+    return response.json();
+};
+

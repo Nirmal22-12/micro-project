@@ -39,6 +39,40 @@ const registerForCampaign = async (req, res) => {
   }
 };
 
+// @desc    Get all active campaigns
+// @route   GET /api/campaigns
+// @access  Public
+const getCampaigns = async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT c.*, 
+        (SELECT COUNT(*) FROM campaign_registrations cr WHERE cr.campaign_id = c.id) AS current
+      FROM campaigns c 
+      ORDER BY c.event_date ASC
+    `);
+    
+    // Map database columns to the UI schema
+    const mapped = result.rows.map(row => ({
+      id: row.id,
+      title: row.name,
+      location: row.location || 'LifeFlow Center',
+      date: new Date(row.event_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      time: '9:00–17:00',
+      current: parseInt(row.current || 0, 10),
+      goal: 100, // standard default goal
+      type: 'Whole Blood',
+      urgencyLabel: new Date(row.event_date) < new Date(Date.now() + 86400000 * 3) ? '🔴 Urgent' : 'Open',
+      urgencyColor: new Date(row.event_date) < new Date(Date.now() + 86400000 * 3) ? '#dc2626' : '#16a34a'
+    }));
+
+    res.status(200).json(mapped);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: 'Server error fetching campaigns' });
+  }
+};
+
 module.exports = {
-  registerForCampaign
+  registerForCampaign,
+  getCampaigns
 };

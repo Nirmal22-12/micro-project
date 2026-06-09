@@ -6,7 +6,7 @@ const gradients = [
   "linear-gradient(135deg,#7f1d1d,#3f0006)",
 ];
 
-export default function CampaignCard({ campaign, index = 0 }) {
+export default function CampaignCard({ campaign, index = 0, onRegister }) {
   const navigate = useNavigate();
   const pct = Math.round((campaign.current / campaign.goal) * 100);
 
@@ -59,7 +59,7 @@ export default function CampaignCard({ campaign, index = 0 }) {
         <div className="flex items-center justify-between">
           <span className="text-xs text-gray-500 font-medium">{campaign.goal - campaign.current} spots left</span>
           <button
-            onClick={() => navigate("/donors/add")}
+            onClick={onRegister || (() => navigate("/donors/add"))}
             className="px-4 py-2 rounded-xl text-white text-xs font-bold border-none cursor-pointer transition-all duration-200 hover:scale-105"
             style={{ background: "linear-gradient(135deg,#f43f5e,#be123c)", boxShadow: "0 4px 16px rgba(193,21,42,.3)" }}
           >

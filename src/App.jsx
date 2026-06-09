@@ -16,6 +16,7 @@ import BadgesPage from "./pages/BadgesPage";
 import FindDonors from "./pages/FindDonors";
 import Donations from "./pages/Donations";
 import Certificate from "./pages/Certificate";
+import Campaigns from "./pages/Campaigns";
 
 import "./styles/global.css";
 
@@ -32,6 +33,7 @@ function AppRoutes() {
         <Route path="/why-donate" element={<WhyDonate />} />
         <Route path="/donors" element={<Donors />} />   {/* read-only public view */}
         <Route path="/donors/search" element={<FindDonors />} />
+        <Route path="/campaigns" element={<Campaigns />} />
 
         {/* ════ AUTH PAGES — redirect to dashboard if already logged in ════ */}
         <Route path="/login"    element={user ? <Navigate to="/dashboard" replace /> : <Login />} />

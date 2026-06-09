@@ -35,7 +35,7 @@ export default function Navbar() {
     { path: "/",           label: "Home" },
     { path: "/dashboard",  label: "Dashboard" },
     { path: "/donors",     label: "Donors" },
-    { path: "/donors/add", label: "Campaigns" },
+    { path: "/campaigns",  label: "Campaigns" },
     { path: "/donations",  label: "Donations" },
     { path: "/profile",    label: "Profile" },
   ];
