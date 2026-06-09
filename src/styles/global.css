@@ -8,7 +8,23 @@
 /* ─── HemoLife Global Styles ─── */
 
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: default;
+}
+
+/* Allow text selection cursor only on inputs, textareas, and editable areas */
+input, textarea, [contenteditable] {
+  cursor: text;
+}
+
+/* Ensure interactive elements use pointer cursors */
+a, button, select, option, [role="button"], .cursor-pointer {
+  cursor: pointer;
+}
+
 
 :root {
   --red-50:#fff1f2; --red-100:#ffe4e6; --red-200:#fecdd3; --red-300:#fda4af;
