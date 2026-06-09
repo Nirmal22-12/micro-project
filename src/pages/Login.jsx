@@ -162,7 +162,12 @@ export default function Login() {
                 <label style={{ fontSize:12, fontWeight:600, color:"#374151" }}>
                   Password <span style={{ color:"#e11d48" }}>*</span>
                 </label>
-                <span style={{ fontSize:12, color:"#e11d48", fontWeight:500, cursor:"pointer" }}>Forgot password?</span>
+                <span 
+                  onClick={() => alert("🔑 Password Recovery:\n\nPlease contact the LifeFlow administrator at support@lifeflow.org or reach out to our helpline to reset your password.")}
+                  style={{ fontSize:12, color:"#e11d48", fontWeight:500, cursor:"pointer" }}
+                >
+                  Forgot password?
+                </span>
               </div>
               <div style={{ position:"relative" }}>
                 <input
